@@ -1,12 +1,12 @@
 import dns.resolver
 import re
 
-keywords = ["Buy Now", "Urgent", "Account", "Payment", "Verify",
-            "Important", "http://", "Link", "Unsubscribe", "Subscribe"]
+keywords = ["buy now", "urgent", "account", "payment", "verify",
+            "important", "http://", "link", "unsubscribe", "subscribe"]
 
 userInput = """
 From: callcenter@bdo.com.ph
-"Dear customer, your recent transaction has been successfully processed."
+Important: Your Account statement for December 2024 is ready for viewing.
 """
 result = ""
 attemptsToVerify = 0
@@ -46,7 +46,7 @@ def senderVerifier():
 def checkKeywords():
     global attemptsToVerify, result
     for phishingWord in keywords:
-        if phishingWord in userInput:
+        if phishingWord in userInput.lower():
             if attemptsToVerify == 0:
                 attemptsToVerify += 1
                 result += ''.join(phishingWord.lower().split())
