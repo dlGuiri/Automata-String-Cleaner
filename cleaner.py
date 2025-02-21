@@ -2,11 +2,12 @@ import dns.resolver
 import re
 
 keywords = ["buy now", "urgent", "account", "payment", "verify",
-            "important", "http://", "link", "unsubscribe", "subscribe"]
+            "important", "link", "unsubscribe", "subscribe"]
 
 userInput = """
-From: callcenter@bdo.com.ph
-Important: Your Account statement for December 2024 is ready for viewing.
+From: customerassistance@toyota.com.ph
+"Exciting offers on Toyota accessories this summer! 
+Visit http://toyota.com.ph/ to view more!"
 """
 result = ""
 attemptsToVerify = 0
@@ -53,13 +54,14 @@ def checkKeywords():
                 senderVerifier()
     if attemptsToVerify == 0:
         result += "link"
+        checkDomain()
 
 # Check for suspicious links
 def checkDomain():
     global result
-    if "https://" in userInput:
+    if "https://" in userInput.lower():
         result += "https://"
-    elif "http://" in userInput:
+    if "http://" in userInput.lower():
         result += "http://"
 
 # Run validation
